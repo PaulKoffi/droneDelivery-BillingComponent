@@ -58,6 +58,7 @@ public class GeneratingBillsArquillianTest extends AbstractBillingTest implement
         package1 = new Package();
         package1.setWeight(10.0);
         package1.setProvider(pro1);
+        package1.setSecret_number("AXXXX2");
         pro1.add(package1);
 
         delivery1 = new Delivery();

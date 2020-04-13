@@ -146,9 +146,11 @@ public class GeneratingBillsTest extends AbstractBillingTest {
         entityManager.persist(pro2);
 
         package5.setProvider(pro3);
+        package5.setSecret_number("AXXXX2");
         entityManager.persist(package5);
 
         package2.setProvider(pro3);
+        package2.setSecret_number("AXXXX8");
         entityManager.persist(package2);
         pro3.add(package5);
         pro3.add(package2);
@@ -160,9 +162,11 @@ public class GeneratingBillsTest extends AbstractBillingTest {
         entityManager.persist(delivery2);
 
         package3.setProvider(pro2);
+        package3.setSecret_number("AXXXX3");
         entityManager.persist(package3);
 
         package4.setProvider(pro2);
+        package4.setSecret_number("AXXX2");
         entityManager.persist(package4);
         pro2.add(package3);
         pro2.add(package4);
