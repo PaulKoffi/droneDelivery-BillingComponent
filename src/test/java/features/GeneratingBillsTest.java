@@ -74,9 +74,11 @@ public class GeneratingBillsTest extends AbstractBillingTest {
 
         delivery1 = new Delivery();
         delivery1.setCustomer(c);
+        delivery1.setDeliveryDate("17/04/2020");
 
         delivery2 = new Delivery();
         delivery2.setCustomer(c);
+        delivery2.setDeliveryDate("17/04/2020");
 
         package3 = new Package();
         package3.setWeight(20.0);
@@ -86,9 +88,11 @@ public class GeneratingBillsTest extends AbstractBillingTest {
 
         delivery3 = new Delivery();
         delivery3.setCustomer(c);
+        delivery3.setDeliveryDate("17/04/2020");
 
         delivery4 = new Delivery();
         delivery4.setCustomer(c);
+        delivery4.setDeliveryDate("17/04/2020");
 
 
     }
@@ -134,7 +138,7 @@ public class GeneratingBillsTest extends AbstractBillingTest {
     }
 
     @Quand("^l'employé envoie les (\\d+) livraisons du fournisseurs (.*) et (.*)$")
-    public void livraisonsenvoyées(Integer arg0,String arg1,String arg2){
+    public void livraisonsenvoyées(Integer arg0,String arg1,String arg2) throws Exception {
        /* init.initializeDatabaseTestWithMutipleProviders(arg0,arg1,arg2);
         for(int i= 0; i < init.getDeliveries().size();i++){
             Delivery delivery = nextDelivery.getNextDelivery();

@@ -64,6 +64,7 @@ public class GeneratingBillsArquillianTest extends AbstractBillingTest implement
         delivery1 = new Delivery();
         delivery1.setCustomer(c);
         delivery1.setPackageDelivered(package1);
+        delivery1.setDeliveryDate("17/04/2020");
         c.add_a_customer_delivery(delivery1);
     }
 
@@ -92,7 +93,7 @@ public class GeneratingBillsArquillianTest extends AbstractBillingTest implement
     public void demandeprochainelivraison(){
     }
     @Alors("^il y a (\\d+) livraisons$")
-    public void ilyanombredelivraison(Integer arg0){
+    public void ilyanombredelivraison(Integer arg0) throws Exception {
         assertNull(nextDelivery.getNextDelivery());
     }
     @Et("^donc il y a (\\d+) facture$")
@@ -101,7 +102,7 @@ public class GeneratingBillsArquillianTest extends AbstractBillingTest implement
         assertEquals(arg0.intValue(),billinggenerator.get_bills().size());
     }
     @Quand("^l'employé effectue les (\\d+) prochaines livraisons du fournisseur (.*)$")
-    public void efftecueprochainelivraisons(Integer arg0, String arg1){
+    public void efftecueprochainelivraisons(Integer arg0, String arg1) throws Exception {
         pro1.setName(arg1);
         entityManager.persist(package1);
         entityManager.persist(delivery1);
