@@ -17,6 +17,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
+import utils.MyDate;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -180,6 +181,8 @@ public class GeneratingBillsTest extends AbstractBillingTest {
 
         delivery4.setPackageDelivered(package4);
         entityManager.persist(delivery4);
+
+        MyDate.date_now="17/04/2020";
 
         for(int i= 0; i < 3;i++){
             nextDeliveryInterface.getNextDelivery();

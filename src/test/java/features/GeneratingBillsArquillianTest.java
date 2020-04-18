@@ -17,6 +17,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
+import utils.MyDate;
 
 import javax.ejb.EJB;
 import javax.inject.Inject;
@@ -108,6 +109,7 @@ public class GeneratingBillsArquillianTest extends AbstractBillingTest implement
         entityManager.persist(delivery1);
         entityManager.persist(pro1);
         entityManager.persist(c);
+        MyDate.date_now = "17/04/2020";
         nextDelivery.getNextDelivery();
     }
     @Alors("^il y a (\\d+) facture$")
