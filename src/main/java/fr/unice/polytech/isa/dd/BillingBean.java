@@ -47,6 +47,7 @@ public class BillingBean implements BillingGeneratedInterface, CheckTransferStat
                 Bill new_bill = new Bill();
                 new_bill.setProvider(entry.getKey());
                 new_bill.setDeliveries(entry.getValue());
+                entry.getKey().add(new_bill);
                 entityManager.persist(new_bill);
                 //db.getBillList().add(new Bill( i,entry.getKey(), entry.getValue()));
                 //i++;
