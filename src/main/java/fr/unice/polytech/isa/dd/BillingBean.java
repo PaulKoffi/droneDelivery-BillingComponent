@@ -39,7 +39,7 @@ public class BillingBean implements BillingGeneratedInterface, CheckTransferStat
 
 
     @Override
-    public void generateBill() {
+    public void generateBill() throws Exception {
         int i = 1;
         for (Map.Entry<Provider, List<Delivery>> entry : delivery.getAllDayDeliveries().entrySet()) {
             // System.out.println("[Key] : " + entry.getKey() + " [Value] : " + entry.getValue().size());
@@ -47,6 +47,11 @@ public class BillingBean implements BillingGeneratedInterface, CheckTransferStat
                 Bill new_bill = new Bill();
                 new_bill.setProvider(entry.getKey());
                 new_bill.setDeliveries(entry.getValue());
+                double sum = 0.0;
+                for (Delivery d: entry.getValue()) {
+                    sum+=d.getPrice();
+                }
+                new_bill.setBillAmount(sum);
                 entry.getKey().add(new_bill);
                 entityManager.persist(new_bill);
                 //db.getBillList().add(new Bill( i,entry.getKey(), entry.getValue()));

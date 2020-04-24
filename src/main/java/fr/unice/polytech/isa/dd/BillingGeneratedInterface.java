@@ -7,6 +7,6 @@ import java.util.List;
 
 @Local
 public interface BillingGeneratedInterface {
-    void generateBill();
+    void generateBill() throws Exception;
     public List<Bill> get_bills();
 }

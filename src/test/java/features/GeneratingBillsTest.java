@@ -201,7 +201,7 @@ public class GeneratingBillsTest extends AbstractBillingTest {
     }
     //Ce test bug parce que la valeur doit être 2
     @Alors("^(\\d+) factures sont générées$")
-    public void facturegenerees(Integer arg0){
+    public void facturegenerees(Integer arg0) throws Exception {
         billinggenerator.generateBill();
         assertEquals(arg0.intValue(),billinggenerator.get_bills().size());
     }

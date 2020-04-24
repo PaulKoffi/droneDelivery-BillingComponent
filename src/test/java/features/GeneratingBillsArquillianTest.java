@@ -98,7 +98,7 @@ public class GeneratingBillsArquillianTest extends AbstractBillingTest implement
         assertNull(nextDelivery.getNextDelivery());
     }
     @Et("^donc il y a (\\d+) facture$")
-    public void nombredefactures(Integer arg0){
+    public void nombredefactures(Integer arg0) throws Exception {
         billinggenerator.generateBill();
         assertEquals(arg0.intValue(),billinggenerator.get_bills().size());
     }
@@ -113,7 +113,7 @@ public class GeneratingBillsArquillianTest extends AbstractBillingTest implement
         nextDelivery.getNextDelivery();
     }
     @Alors("^il y a (\\d+) facture$")
-    public void facturenombre(Integer arg0) {
+    public void facturenombre(Integer arg0) throws Exception {
         billinggenerator.generateBill();
         assertEquals(arg0.intValue(),billinggenerator.get_bills().size());
     }
