@@ -15,5 +15,5 @@ public interface CheckTransferStatus {
 
     List<Bill> getAllPaidBills() throws ExternalPartnerException;
 
-    public List<Integer> getAllPaidBills2() throws ExternalPartnerException;
+    public List<Integer> allIdBillPaid() throws ExternalPartnerException;
 }

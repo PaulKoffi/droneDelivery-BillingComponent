@@ -30,32 +30,19 @@ public class BillingBean implements BillingGeneratedInterface, CheckTransferStat
 
     private BankAPI bank = new BankAPI();
 
-    /*public BillingBean() {
-        bank = new BankAPI();
-    }*/
     public BillingBean() {
 
     }
 
 
     @Override
-    public void generateBill() throws Exception {
-        int i = 1;
+    public void generateBill(){
+        long idBill = get_bills().size();
         for (Map.Entry<Provider, List<Delivery>> entry : delivery.getAllDayDeliveries().entrySet()) {
-            // System.out.println("[Key] : " + entry.getKey() + " [Value] : " + entry.getValue().size());
             if (!entry.getValue().isEmpty()) {
-                Bill new_bill = new Bill();
-                new_bill.setProvider(entry.getKey());
-                new_bill.setDeliveries(entry.getValue());
-                double sum = 0.0;
-                for (Delivery d: entry.getValue()) {
-                    sum+=d.getPrice();
-                }
-                new_bill.setBillAmount(sum);
+                Bill new_bill = new Bill(idBill,entry.getKey(),entry.getValue());
                 entry.getKey().add(new_bill);
                 entityManager.persist(new_bill);
-                //db.getBillList().add(new Bill( i,entry.getKey(), entry.getValue()));
-                //i++;
             }
         }
     }
@@ -96,7 +83,6 @@ public class BillingBean implements BillingGeneratedInterface, CheckTransferStat
             Bill b = findBillById(res.getInt(i));
             if (b != null) {
                 b.setBillStatus("PAID");
-                //  System.out.println(b.getBillStatus());
                 bills.add(b);
             }
         }
@@ -147,7 +133,7 @@ public class BillingBean implements BillingGeneratedInterface, CheckTransferStat
     }
 
     @Override
-    public List<Integer> getAllPaidBills2() throws ExternalPartnerException {
+    public List<Integer> allIdBillPaid() throws ExternalPartnerException {
         List<Integer> bills = new ArrayList<>();
         JSONArray res = bank.getPayements();
         for (int i = 0; i < res.length(); i++) {
