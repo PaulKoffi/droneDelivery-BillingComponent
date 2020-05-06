@@ -14,4 +14,6 @@ public interface CheckTransferStatus {
     boolean checkstatut(int id);
 
     List<Bill> getAllPaidBills() throws ExternalPartnerException;
+
+    public List<Integer> getAllPaidBills2() throws ExternalPartnerException;
 }

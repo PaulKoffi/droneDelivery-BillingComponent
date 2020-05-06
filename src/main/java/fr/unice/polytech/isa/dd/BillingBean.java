@@ -131,5 +131,29 @@ public class BillingBean implements BillingGeneratedInterface, CheckTransferStat
             return null;
         }
     }
+
+
+    @PostConstruct
+    private void initializeRestPartnership() {
+        try {
+            Properties prop = new Properties();
+            prop.load(this.getClass().getResourceAsStream("/bank.properties"));
+            bank = new BankAPI(prop.getProperty("bankHostName"),
+                    prop.getProperty("bankPortNumber"));
+        } catch(IOException e) {
+            log.log(Level.INFO, "Cannot read bank.properties file", e);
+            throw new UncheckedException(e);
+        }
+    }
+
+    @Override
+    public List<Integer> getAllPaidBills2() throws ExternalPartnerException {
+        List<Integer> bills = new ArrayList<>();
+        JSONArray res = bank.getPayements();
+        for (int i = 0; i < res.length(); i++) {
+            bills.add(res.getInt(i));
+        }
+        return bills;
+    }
 }
 
