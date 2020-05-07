@@ -19,14 +19,17 @@ import java.io.IOException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-@Stateless(name="bill-stateless")
+
+@Stateless(name = "bill-stateless")
 public class BillingBean implements BillingGeneratedInterface, CheckTransferStatus {
 
-    @PersistenceContext private EntityManager entityManager;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     private static final Logger log = Logger.getLogger(Logger.class.getName());
 
-    @EJB(name = "delivery-stateless") private DeliveryInterface delivery;
+    @EJB(name = "delivery-stateless")
+    private DeliveryInterface delivery;
 
     private BankAPI bank = new BankAPI();
 
@@ -36,11 +39,11 @@ public class BillingBean implements BillingGeneratedInterface, CheckTransferStat
 
 
     @Override
-    public void generateBill(){
+    public void generateBill() {
         long idBill = get_bills().size();
         for (Map.Entry<Provider, List<Delivery>> entry : delivery.getAllDayDeliveries().entrySet()) {
             if (!entry.getValue().isEmpty()) {
-                Bill new_bill = new Bill(idBill,entry.getKey(),entry.getValue());
+                Bill new_bill = new Bill(idBill, entry.getKey(), entry.getValue());
                 entry.getKey().add(new_bill);
                 entityManager.persist(new_bill);
             }
@@ -52,8 +55,8 @@ public class BillingBean implements BillingGeneratedInterface, CheckTransferStat
         boolean status = false;
         try {
             JSONObject resp = bank.getPayment(id);
-            double amount = resp.getDouble("Amount");
-            System.out.println("Amount " + amount);
+//            double amount = resp.getDouble("Amount");
+//            System.out.println("Amount " + amount);
             //TODO
 //            status = true;
             //Must also update the paymentDate  with the date of the transfer and paymentStatus attribute after checking the amount of the transfer of the bill in database
@@ -63,10 +66,7 @@ public class BillingBean implements BillingGeneratedInterface, CheckTransferStat
                 // verifier si le montant de la facture est bon normalement
                 status = true;
                 b.setBillStatus("PAID");
-            } else {
-                System.out.println("b is null");
             }
-
         } catch (ExternalPartnerException e) {
             return false;
 //            System.out.println("ERROR");
@@ -93,27 +93,27 @@ public class BillingBean implements BillingGeneratedInterface, CheckTransferStat
     public Bill findBillById(int id) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Bill> criteria = builder.createQuery(Bill.class);
-        Root<Bill> root =  criteria.from(Bill.class);
-        criteria.select(root).where(builder.equal(root.get("id"),id));
+        Root<Bill> root = criteria.from(Bill.class);
+        criteria.select(root).where(builder.equal(root.get("id"), id));
         TypedQuery<Bill> query = entityManager.createQuery(criteria);
         try {
             return Optional.of(query.getSingleResult()).get();
-        } catch (NoResultException nre){
+        } catch (NoResultException nre) {
             return null;
         }
     }
 
     @Override
-    public List<Bill> get_bills(){
+    public List<Bill> get_bills() {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Bill> criteria = builder.createQuery(Bill.class);
-        Root<Bill> root =  criteria.from(Bill.class);
+        Root<Bill> root = criteria.from(Bill.class);
         criteria.select(root);
         TypedQuery<Bill> query = entityManager.createQuery(criteria);
         try {
             List<Bill> toReturn = new ArrayList<>(query.getResultList());
             return Optional.of(toReturn).get();
-        } catch (NoResultException nre){
+        } catch (NoResultException nre) {
             return null;
         }
     }
@@ -126,7 +126,7 @@ public class BillingBean implements BillingGeneratedInterface, CheckTransferStat
             prop.load(this.getClass().getResourceAsStream("/bank.properties"));
             bank = new BankAPI(prop.getProperty("bankHostName"),
                     prop.getProperty("bankPortNumber"));
-        } catch(IOException e) {
+        } catch (IOException e) {
             log.log(Level.INFO, "Cannot read bank.properties file", e);
             throw new UncheckedException(e);
         }
