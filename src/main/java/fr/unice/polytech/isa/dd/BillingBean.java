@@ -94,7 +94,7 @@ public class BillingBean implements BillingGeneratedInterface, CheckTransferStat
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Bill> criteria = builder.createQuery(Bill.class);
         Root<Bill> root = criteria.from(Bill.class);
-        criteria.select(root).where(builder.equal(root.get("id"), id));
+        criteria.select(root).where(builder.equal(root.get("idBill"), id));
         TypedQuery<Bill> query = entityManager.createQuery(criteria);
         try {
             return Optional.of(query.getSingleResult()).get();
