@@ -59,7 +59,7 @@ public class GeneratingBillsTest extends AbstractBillingTest {
 
     private Drone drone1 = new Drone(12,0,"1");
     private Drone drone2 = new Drone(12,0,"2");
-
+    private Drone drone3 = new Drone(12,0,"3");
 
     @Before
     public void setUp() {
@@ -68,6 +68,8 @@ public class GeneratingBillsTest extends AbstractBillingTest {
         entityManager.persist(drone1);
         drone2.addStatut(new DroneStatus(DRONE_STATES.AVAILABLE,"12/12/2020"));
         entityManager.persist(drone2);
+        drone3.addStatut(new DroneStatus(DRONE_STATES.AVAILABLE,"12/12/2020"));
+        entityManager.persist(drone3);
 
         pro3 = new Provider();
 
@@ -110,6 +112,8 @@ public class GeneratingBillsTest extends AbstractBillingTest {
         entityManager.remove(drone1);
         drone2 = entityManager.merge(drone2);
         entityManager.remove(drone2);
+        drone3 = entityManager.merge(drone3);
+        entityManager.remove(drone3);
 
         delivery1 = entityManager.merge(delivery1);
         entityManager.remove(delivery1);
@@ -189,14 +193,14 @@ public class GeneratingBillsTest extends AbstractBillingTest {
         MyDate.date_now="17/04/2020";
 
         for(int i= 0; i < 3;i++){
-            if(i == 1) {
-                drone1 = entityManager.find(Drone.class,drone1.getId());
-                entityManager.refresh(drone1);
-                MyDate dt = new MyDate("14/04/2020","10h00");
-                DroneStatus status= new DroneStatus(DRONE_STATES.AVAILABLE,dt.toString());
-                drone1.addStatut(status);
-                entityManager.persist(drone1);
-            }
+//            if(i == 1) {
+//                drone1 = entityManager.find(Drone.class,drone1.getId());
+//                entityManager.refresh(drone1);
+//                MyDate dt = new MyDate("14/04/2020","10h00");
+//                DroneStatus status= new DroneStatus(DRONE_STATES.AVAILABLE,dt.toString());
+//                drone1.addStatut(status);
+//                entityManager.persist(drone1);
+//            }
             nextDeliveryInterface.getNextDelivery();
         }
 
