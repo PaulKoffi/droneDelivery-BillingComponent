@@ -9,4 +9,5 @@ import java.util.List;
 public interface BillingGeneratedInterface {
     void generateBill();
     public List<Bill> get_bills();
+    Boolean deleteAll();
 }

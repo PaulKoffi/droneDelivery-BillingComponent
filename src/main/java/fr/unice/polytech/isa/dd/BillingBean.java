@@ -118,6 +118,15 @@ public class BillingBean implements BillingGeneratedInterface, CheckTransferStat
         }
     }
 
+    @Override
+    public Boolean deleteAll() {
+        List<Bill> allBill = get_bills();
+        for (Bill b : allBill) {
+            entityManager.remove(b);
+        }
+        return true;
+    }
+
 
     @PostConstruct
     private void initializeRestPartnership() {
