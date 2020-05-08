@@ -40,12 +40,18 @@ public class BillingBean implements BillingGeneratedInterface, CheckTransferStat
 
     @Override
     public void generateBill() {
-//        long idBill = get_bills().size();
+        deleteAll();
+        int idBill = 1;
+//        List<Bill> b = get_bills();
+//        if ( b != null){
+//            idBill = b.size();
+//        }
         for (Map.Entry<Provider, List<Delivery>> entry : delivery.getAllDayDeliveries().entrySet()) {
             if (!entry.getValue().isEmpty()) {
-                Bill new_bill = new Bill(entry.getKey(), entry.getValue());
+                Bill new_bill = new Bill(idBill, entry.getKey(), entry.getValue());
                 entry.getKey().add(new_bill);
                 entityManager.persist(new_bill);
+                idBill += 1;
             }
         }
     }
