@@ -57,9 +57,9 @@ public class GeneratingBillsTest extends AbstractBillingTest {
     private Delivery delivery3;
     private Delivery delivery4;
 
-    private Drone drone1 = new Drone(12,0,"1");
-    private Drone drone2 = new Drone(12,0,"2");
-    private Drone drone3 = new Drone(12,0,"3");
+    private Drone drone1 = new Drone("1");
+    private Drone drone2 = new Drone("2");
+    private Drone drone3 = new Drone("3");
 
     @Before
     public void setUp() {

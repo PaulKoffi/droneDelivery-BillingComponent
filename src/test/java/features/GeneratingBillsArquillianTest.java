@@ -50,7 +50,7 @@ public class GeneratingBillsArquillianTest extends AbstractBillingTest implement
     private Provider pro1;
     private Package package1;
     private Delivery delivery1;
-    private Drone drone = new Drone(12,0,"1"); ;
+    private Drone drone = new Drone("1"); ;
 
     @Before
     public void setUp(){
