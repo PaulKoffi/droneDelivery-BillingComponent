@@ -52,6 +52,7 @@ public class BillingBean implements BillingGeneratedInterface, CheckTransferStat
                 entry.getKey().add(new_bill);
                 entityManager.persist(new_bill);
                 idBill += 1;
+//                #68 change port
             }
         }
     }
