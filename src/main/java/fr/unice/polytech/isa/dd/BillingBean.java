@@ -4,6 +4,7 @@ import fr.unice.polytech.isa.dd.entities.*;
 import org.apache.cxf.common.i18n.UncheckedException;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import utils.MyDate;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -19,6 +20,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Stateless(name = "bill-stateless")
 public class BillingBean implements BillingGeneratedInterface, CheckTransferStatus {
@@ -40,8 +42,8 @@ public class BillingBean implements BillingGeneratedInterface, CheckTransferStat
 
     @Override
     public void generateBill() {
-        deleteAll();
-        int idBill = 1;
+        removeAllBillOfToday();
+        int idBill = get_bills().size();
 //        List<Bill> b = get_bills();
 //        if ( b != null){
 //            idBill = b.size();
@@ -155,6 +157,13 @@ public class BillingBean implements BillingGeneratedInterface, CheckTransferStat
             bills.add(res.getInt(i));
         }
         return bills;
+    }
+
+    private void removeAllBillOfToday(){
+        List<Bill> billNotToday = get_bills().stream().filter(d -> d.getBillDate().equals(MyDate.date_now)).collect(Collectors.toList());
+        for (Bill bill: billNotToday) {
+            entityManager.remove(bill);
+        }
     }
 }
 
