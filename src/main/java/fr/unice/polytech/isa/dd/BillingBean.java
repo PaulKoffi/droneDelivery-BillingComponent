@@ -49,11 +49,11 @@ public class BillingBean implements BillingGeneratedInterface, CheckTransferStat
 //            idBill = b.size();
 //        }
         for (Map.Entry<Provider, List<Delivery>> entry : delivery.getAllDayDeliveries().entrySet()) {
+            idBill += 1;
             if (!entry.getValue().isEmpty()) {
                 Bill new_bill = new Bill(idBill, entry.getKey(), entry.getValue());
                 entry.getKey().add(new_bill);
                 entityManager.persist(new_bill);
-                idBill += 1;
             }
         }
     }
