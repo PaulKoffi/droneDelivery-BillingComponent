@@ -32,6 +32,7 @@ public class BillingBean implements BillingGeneratedInterface, CheckTransferStat
 
     private static final Logger log = Logger.getLogger(Logger.class.getName());
 
+
     @EJB(name = "delivery-stateless")
     private DeliveryInterface delivery;
 
