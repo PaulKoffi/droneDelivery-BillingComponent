@@ -27,7 +27,7 @@ public class BillingBean implements BillingGeneratedInterface, CheckTransferStat
 
 
 
-    @PersistenceContext
+    @PersistenceContex
     private EntityManager entityManager;
 
     private static final Logger log = Logger.getLogger(Logger.class.getName());
