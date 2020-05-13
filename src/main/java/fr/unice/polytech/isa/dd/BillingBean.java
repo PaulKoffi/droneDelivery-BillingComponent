@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 @Stateless(name = "bill-stateless")
 public class BillingBean implements BillingGeneratedInterface, CheckTransferStatus {
 
+
     @PersistenceContext
     private EntityManager entityManager;
 
