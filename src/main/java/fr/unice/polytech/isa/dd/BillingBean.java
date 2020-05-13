@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 public class BillingBean implements BillingGeneratedInterface, CheckTransferStatus {
 
 
-    @PersistenceContex
+    @PersistenceContext
     private EntityManager entityManager;
 
     private static final Logger log = Logger.getLogger(Logger.class.getName());
